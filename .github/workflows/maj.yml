@@ -1,0 +1,22 @@
+name: Mise à jour du site web
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_ADDRESS }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: /
+          server-dir: ${{ secrets.FTP_FOLDER }}
